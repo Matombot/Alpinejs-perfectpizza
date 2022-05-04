@@ -29,9 +29,22 @@ body{
     background-color: #247BA0;
 
 }
-.contact_us {
+
+.footer {
+    display: flex;
     background-color: #70C1B3;
-}
+    border: 1px solid d;
+    padding: 1em;
+    margin: 1em;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
+  }
+  
+  .footer div {
+    flex: 1;
+    border-radius: 1em;
+    background-color: #70C1B3;
+  }
 @media (min-width:760px){
     body {background-color: #50514F;
 
