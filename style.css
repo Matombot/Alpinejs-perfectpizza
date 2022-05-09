@@ -14,9 +14,6 @@ body {
     border-radius: 0.5em;
 }
 
-
-
-
 	/* .header {
 		display: flex;
 	} */
@@ -42,13 +39,9 @@ body {
 	.cart {
 		/* position: fixed; */
 		width: 100%;
-		/* margin: auto; */
-		/* width: 40%; */
-		/* min-height: 15em; */
+		
         background-color: rgba(0, 128, 0, 0.582);
       text-align: center;
-		/* top: 0em;
-		right: 0em; */
 		margin-right: 1em;
 		padding: 1em;
 		/* border: 0.1em solid; */
