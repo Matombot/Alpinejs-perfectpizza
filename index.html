@@ -5,84 +5,189 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfect Pizza</title>
     <link rel="stylesheet" href="style.css">
+    <title>Document</title>
 </head>
 
 <body>
-    <h1>Perfect Pizza</h1>
+    <div x-data="{ smallPizza:0, mediumPizza:0, largePizza:0,totalPrice :0, processOrder : false,pay:''}">
+        <div>
+            <h1>Perfect Pizza</h1>
+        </div>
 
-    <div class="pizzas">
-        <div class="pizza small_pizza">
-            <h2>small Pizza</h2>
-            <img src="pizza-one.png"width="75">
-            <div>
-                <h3>R49.00</h3>
+
+        <div class="cartTotal ">
+            <strong>Total price</strong>
+            <span class="cartTotalPrice"
+                x-text="(smallPizza *48.99 +mediumPizza *78.99+largePizza *144.99).toFixed(2) ">0.00</span>
+            <a href="#">
+                <img src="shopping-cart.png" alt="">
+            </a>
+        </div>
+
+
+        <div class="cart">
+            <h3>Shopping Cart</h3>
+            <img src="shopping-cart.png" alt="">
+            <div class="message" x-show.transition="smallPizza || mediumPizza  || largePizza">
+                Pizza Added to cart
+            </div>
+
+            <table>
+
+                <div class="cartAction"
+                    x-show="smallPizza != 0 || mediumPizza != 0 || largePizza != 0 || totalPrice!=0">
+                    <template x-if="smallPizza > 0">
+
+                        <tr>
+                            <td><strong>Small pizzas total:</strong></td>
+                            <td><span class="smallTotalPrice" x-text="(smallPizza *48.99 ).toFixed(2)">0.00</span>
+                            </td>
+                            <td>
+                                <button @click="smallPizza--">-</button>
+                                <button @click="smallPizza++">+</button>
+                            </td>
+                        </tr>
+
+                    </template>
+                    <template x-if="mediumPizza > 0">
+                        <tr>
+                            <td><strong>Medium pizzas total:</strong></td>
+
+                            <td><span class="mediumTotalPrice" x-text="(mediumPizza *78.99).toFixed(2)">0.00</span>
+                            </td>
+                            <td>
+                                <button @click="mediumPizza--">-</button>
+                                <button @click="mediumPizza++">+</button>
+
+
+                            </td>
+                        </tr>
+                    </template>
+                    <template x-if="largePizza > 0">
+                        <tr>
+                            <td><strong>Large pizza total:</strong></td>
+                            <td><span class="largeTotalPrice" x-text="(largePizza *114.99).toFixed(2) ">0.00</span>
+                            </td>
+                            <td>
+                                <button @click="largePizza--">-</button>
+                                <button @click="largePizza++">+</button>
+                            </td>
+
+                        </tr>
+                    </template>
+
+                    <tr>
+                        <td><strong>Total price</strong></td>
+                        <td><span class="totalPrice"
+                                x-text="(smallPizza *48.99 +mediumPizza *78.99+largePizza *144.99).toFixed(2) ">0.00</span>
+                        </td>
+
+                    </tr>
+
                 </div>
-        
-            <div>social media posts directly to customers’ phones. Papa Murphy’s expanded their text messaging club from one
-                test market
-                to 26 different states and, in doing so, grew their list of opt-in users to over 100K. This mother of all
-                loyalty
-                programs sends special offers, coupons, and social media posts directly to customers phones. Regular data
-                rates may
-                apply but regular ad rates do not.
+            </table>
+            <template x-if="!processOrder">
+               <button @click="processOrder=!processOrder">checkout</button> 
+            </template>
+            
+            <br>
+            <template x-if="processOrder">
+               <div>
+                <label for="payment">payment amount:</label>
+                <input type="number" min="00"  class="btn" placeholder="enter amount" x-model="pay">
+            
+            </div>  
+            </template>
+            <template  x-if="smallPizza * 48.99 + mediumPizza * 78.99 + largePizza * 114.99<pay">
+                <div style="color: yellow">successeful payment</div>
+            </template>
+
+            <template x-if="smallPizza * 48.99 + mediumPizza * 78.99 + largePizza * 114.99 >pay">
+                <div style="color: red">insufficient funds</div>
+                
+            </template> 
+            <!-- <template x-if="smallPizza * 48.99 + mediumPizza * 78.99 + largePizza * 114.99<=pay">
+                <div style="color: yellow">successeful payment</div>
+            </template>  -->
+            
+<br>
+<button class="btn" @click="pay"> pay</button>
+
+        </div>
+
+
+        <div class="specials">
+            <div class=" pizza medium">
+                <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+                    alt="">
+                <h2>Medium Pizza</h2>
+                <h3>R78.99</h3>
+                <i>
+                    medium margeritha pizza with 3 toppings max.
+                    2 or less meat topping.
+                    3 or less other toppings.
+                </i>
+                <button @click="mediumPizza++" class="btn">Order</button>
+
+                <div class="message" x-show.transition="mediumPizza">
+                    medium Pizza Added to cart
+                </div>
+            </div>
+            <div class="pizza large">
+                <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+                    alt="">
+                <h2>Large Pizza</h2>
+                <h3>R114.99</h3>
+                <i>
+                    large margeritha pizza with 3 toppings max.
+                    3 meat toppings max.
+                    3 or less other toppings.
+                </i>
+                <button @click="largePizza++" class="btn">Order</button>
+
+                <div class="message" x-show.transition="largePizza">
+                    large Pizza Added to cart
+                </div>
+            </div>
+            <div class="pizza small">
+                <img src="https://image.shutterstock.com/image-vector/italian-pizza-tomato-sausage-olive-600w-554691619.jpg"
+                    alt="">
+                <h2>Small Pizza</h2>
+                <h3>R48.99</h3>
+                <i>
+                    <ul>
+                        <li>small pizza with 3 toppings</li>
+                        <li>1 meat topping.</li>
+                        <li>3 or less other toppings.</li>
+                    </ul>
+                </i>
+                <button @click="smallPizza++" class="btn">Order</button>
+
+                <div class="message" x-show.transition="smallPizza">
+                    small Pizza Added to cart
+                </div>
             </div>
         </div>
-    
-        <div class="pizza medium_pizza">
-            <h2>Medium Pizza</h2>
-            <img src="pizza-one.png"width="100">
-            <div>
-                <h3> R89.00</h3>
-               </div>
-    
-            <div>
-                social media posts directly to customers’ phones. Papa Murphy’s expanded their text messaging club from one
-                test
-                market to 26 different states and, in doing so, grew their list of opt-in users to over 100K. This mother of
-                all
-                loyalty programs sends special offers, coupons, and social media posts directly to customers phones. Regular
-                data
-                rates may apply but regular ad rates do not.
-    
+        <div class="footer">
+            <div class="contact">
+                <strong>Contact us at:</strong>
+                (021)-541-1000
+
+                <strong>twitter /fb /insta </strong> @perfectpizza
             </div>
-        </div>
-    
-        <div class="pizza large_pizza">
-            <h2>Large Pizza</h2>
-            <img src="pizza-one.png"width="150">
-            <div><h3>R129.00</h3>
-               </div>
-            <div>The mother of all pizza marketing loyalty programs sends special offers, coupons, and social media posts
-                directly to
-                customers’ phones. Papa Murphy’s expanded their text messaging club from one test market to 26 different
-                states and,
-                in doing so, grew their list of opt-in users to over 100K. This mother of all loyalty programs sends special
-                offers,
-                coupons, and social media posts directly to customers phones. Regular data rates may apply but regular ad
-                rates do not.
+            <div class="address">
+                Pizza Plaza
+                <br>
+                Dough Road
+                <br>
+                Base Town
+                <br>
+                7890
             </div>
         </div>
     </div>
-   
-    <div class="footer">
-        <div class="contact">
-            <h2>contact details</h2>
-            <strong>Contact us at:</strong>
-            011 965 6345 info@perfectpizza.co.za
-          
-          <strong>twitter /fb /insta </strong>
-        </div> 
-        <div class="address">
-            Pizza Plaza
-            <br>
-            Mvusuludzo Road
-            <br>
-             Thohoyandou
-            <br>
-            0950
-        </div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
 </body>
+
 </html>
